@@ -133,4 +133,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-print("Hello world!")
+
+# SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+
+# path to the directory where session files will be stored
+# SESSION_FILE_PATH = BASE_DIR
+
+# SESSION_COOKIE_AGE = 10
