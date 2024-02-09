@@ -1,0 +1,8 @@
+{% load django_bootstrap5 %}
+{% if messages %}
+{% for message in messages %}
+    {% if message.level == 50 %}{% bootstrap_alert message alert_type='danger' %}{% else %}
+    {% bootstrap_alert message alert_type='info' %}
+    {% endif %}
+{% endfor %}
+{% endif %}

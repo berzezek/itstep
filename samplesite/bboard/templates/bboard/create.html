@@ -1,16 +1,11 @@
-{% extends "layout/base.html" %} {% block content %}
-        <h1>Add bboard</h1>
-        <div>
-            <a href="{% url 'index' %}">Main</a>
-            {% for rubric in rubrics %}
-            <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
-            {% endfor %}
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type ="submit" value="Add" />
-        </form>
-    </body>
-    </html>
+{% extends "layout/base.html" %} {% block content %} 
+{% load django_bootstrap5 %}
+{% bootstrap_css %} {% bootstrap_javascript %}
+<div class="container">
+  <h2>Add bboard</h2>
+    <form method="post" class="form">
+    {% csrf_token %} {% bootstrap_form form %} 
+    {% bootstrap_button button_type="submit" content="OK" class="mt-2" %}
+  </form>
+</div>
 {% endblock %}
