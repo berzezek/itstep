@@ -4,19 +4,33 @@ from .models import Bb, Rubric
 from django.views.generic.edit import CreateView
 from .forms import BbForm
 from django.urls import reverse_lazy
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.messages.views import SuccessMessageMixin
 
 
-class BbCreateView(CreateView):
+MESSAGE_LEVEL = messages.DEBUG
+
+CRITICAL = 50
+
+
+class BbCreateView(SuccessMessageMixin, CreateView):
     template_name = "bboard/create.html"
     form_class = BbForm
     success_url = reverse_lazy("index")
+    success_message = "%(rubric)s was created successfully"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["rubrics"] = Rubric.objects.all()
         return context
+    
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            rubric=self.object.get_rubric(),
+        )
 
 
 def index(request):
@@ -62,8 +76,16 @@ def test_session(request):
 
 
 def test_1(request):
-    request.session['foo'] = 'bar'
-    return HttpResponse('Set foo=bar')
+    # request.session["foo"] = "bar"
+    messages.add_message(request, CRITICAL, "A serious error occurred.")
+    return redirect("index")
+    # return HttpResponse("Set foo=bar")
+
 
 def test_2(request):
-    return HttpResponse(request.session.get('foo', 'No foo'))
+    return HttpResponse(request.session.get("foo", "No foo"))
+
+
+def test_message(request):
+    messages.add_message(request, messages.SUCCESS, "Hello, world!")
+    return redirect("index")

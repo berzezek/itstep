@@ -140,3 +140,5 @@ STATICFILES_DIRS = [
 # SESSION_FILE_PATH = BASE_DIR
 
 # SESSION_COOKIE_AGE = 10
+
+# MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
