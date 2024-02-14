@@ -143,3 +143,13 @@ STATICFILES_DIRS = [
 # SESSION_COOKIE_AGE = 10
 
 # MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "eugenekolin50@gmail.com"
+EMAIL_HOST_PASSWORD = "jekm fkgp vvru nlzj"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "default from email"
+
+

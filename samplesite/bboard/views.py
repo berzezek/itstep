@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import EmailMessage, get_connection, EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 MESSAGE_LEVEL = messages.DEBUG
@@ -89,3 +91,17 @@ def test_2(request):
 def test_message(request):
     messages.add_message(request, messages.SUCCESS, "Hello, world!")
     return redirect("index")
+
+
+def test_send_console_email(request):
+    # con = get_connection()
+    # con.open()
+    # context = {"user": request.user.username}
+    # s = render_to_string("email/letter.txt", context)
+    # em = EmailMessage(subject='Test', body=s, to=[request.user.email], from_email='wknduz@gmail.com', connection=con)
+    # em.send()
+    # con.close()
+    em = EmailMultiAlternatives(subject='Test', body='Hello, world!', to=[request.user.email],)
+    em.attach_alternative('<h1>Hello, world!</h1>', 'text/html')
+    em.send()
+    return HttpResponse("Email sent")
